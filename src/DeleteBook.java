@@ -45,10 +45,14 @@ public class DeleteBook {
      method name: deleteById
      Deletes a book from the collection based on its ID.
      Returns true if the book was found and deleted; otherwise, returns false.
+     Parameters are both the collection and the updated collection ArrayLists and the id
      */
 
     public static boolean deleteById(ArrayList<String> collection, ArrayList<String> updatedCollection, int id) {
         boolean found = false;
+        /*searches through the collection for ID number entered by looking at first value before first comma
+          if the book exists then found is set to true and the book is deleted, else the collection is kept unchanged
+        */
         for (String book: collection) {
             String[] bookDetails = book.split(",");
             if (bookDetails.length >= 1) {
@@ -58,14 +62,15 @@ public class DeleteBook {
                 }catch (NumberFormatException e) {
                     updatedCollection.add(book);
                     continue;
-                }
+                }//end try catch
                 if (bookId == id) {
                     found = true;
-                }else {
+                }//end inner if
+                else {
                     updatedCollection.add(book);
-                }
-            }
-        }
+                }//end else
+            }//end outer if
+        }//end for
         return found;
     }//end deleteById
 
@@ -73,21 +78,27 @@ public class DeleteBook {
      method name: deleteByTitle
      Deletes a book from the collection based on its title.
      Returns true if the book was found and deleted; otherwise, returns false.
+     Parameters are both the collection and the updated collection ArrayLists and the title
      */
 
     public static boolean deleteByTitle(ArrayList<String> collection, ArrayList<String> updatedCollection, String title) {
         boolean found = false;
+        /*searches through the collection for title entered by looking at value after first comma
+          if the book exists then found is set to true and the book is deleted, else the collection is kept unchanged
+          equalsIgnoreCase is used to avoid case sensitivity between user input and book title in the collection
+        */
         for (String book: collection) {
             String[] bookDetails = book.split(",");
             if (bookDetails.length >= 2) {
                 String bookTitle = bookDetails[1].trim();
                 if (bookTitle.equalsIgnoreCase(title)) {
                     found = true;
-                }else {
+                }//end inner if
+                else {
                     updatedCollection.add(book);
-                }
-            }
-        }
+                }//end else
+            }//end outer if
+        }//end for
         return found;
     }//end deleteByTitle
 
