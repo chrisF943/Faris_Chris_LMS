@@ -4,7 +4,7 @@ import java.util.Scanner;
 /*
 Chris Faris
 Software Development 1
-9/3/2023
+9/25/2023
 class name: Main
 This class contains the Main method which executes the menu switch system and calls methods from this class
 and the 2 other classes, the overall objective of this program is to read from a text file and create
@@ -41,7 +41,15 @@ public class Main {
                     collection = DeleteBook.selectBook(collection);
                     ReadFile.writeFile(collection,"BookCollection.txt");
                     break;
-            //shows current collection
+            //asks user for title of book and checks it in to the collection (once database is implemented)
+                case 'I':
+
+                    break;
+            //asks user for title of book and checks it out from the collection (once database is implemented)
+                case 'O':
+
+                    break;
+                //shows current collection
                 case 'V':
                     System.out.println("Here is the current book collection: \n");
                     displayCollection(collection);
@@ -104,7 +112,7 @@ public class Main {
         String book = id + "," + title + "," + author;
         //adds new book to the collection
         collection.add(book);
-
+        System.out.println("Book has successfully been checked in to the collection. \n");
     }//end addBook
 
     /*
@@ -138,6 +146,10 @@ public class Main {
         String menu = "Press 'D' to Delete a book from the collection. \n";
         menu += "----------------------------------------------\n";
         menu += "Press 'A' to Add additional book(s) to the collection.\n";
+        menu += "----------------------------------------------\n";
+        menu += "Press 'I' to check a book in to the collection.\n";
+        menu += "----------------------------------------------\n";
+        menu += "Press 'O' to check a book out from the collection.\n";
         menu += "----------------------------------------------\n";
         menu += "Press 'V' to View the collection.\n";
         menu += "----------------------------------------------\n";

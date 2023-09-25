@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /*
 Chris Faris
 Software Development 1
-9/3/2023
+9/25/2023
 class name: ReadFile
 contains the methods to read from a text file and write changes to it, they are called in the main class
 when initially creating the ArrayList and when changes are made to the collection

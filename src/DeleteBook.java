@@ -4,7 +4,7 @@ import java.util.Scanner;
 /*
 Chris Faris
 Software Development 1
-9/3/2023
+9/25/2023
 class name: DeleteBook
 contains the methods to delete a book from the collection, called in the Main class when
 the user wants to delete a book
@@ -13,7 +13,7 @@ public class DeleteBook {
 
     /*
      method name: selectBook
-     asks the user to enter an ID of a book to delete, iterates through the collection and
+     asks the user to enter an ID or title of a book to delete, iterates through the collection and
      if it is found deletes that book from the collection and updates the collection
      passed in the created ArrayList as a String parameter, returns the updated collection
      */
@@ -22,7 +22,7 @@ public class DeleteBook {
         String userInput;
         boolean deleted = false;
         ArrayList<String> updatedCollection = new ArrayList<>();
-
+        //checks if user input is a integer and calls the deleteById method, if not calls the deleteByTitle method
         do {
             System.out.println("Please enter the ID number or title of the book you want to delete: ");
             userInput = input.nextLine().trim();
@@ -37,7 +37,7 @@ public class DeleteBook {
                 System.out.println("That book does not exist in the collection, please try again");
             }
         }while (!deleted);
-
+        System.out.println("Book has successfully been checked out from the collection. \n");
         return updatedCollection;
     }//end selectBook
 
