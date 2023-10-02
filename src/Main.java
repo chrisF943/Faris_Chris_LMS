@@ -43,11 +43,13 @@ public class Main {
                     break;
             //asks user for title of book and checks it in to the collection (once database is implemented)
                 case 'I':
-
+                    addBook(collection);
+                    ReadFile.writeFile(collection,"BookCollection.txt");
                     break;
             //asks user for title of book and checks it out from the collection (once database is implemented)
                 case 'O':
-
+                    collection = DeleteBook.selectBook(collection);
+                    ReadFile.writeFile(collection,"BookCollection.txt");
                     break;
                 //shows current collection
                 case 'V':
