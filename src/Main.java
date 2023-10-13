@@ -71,7 +71,6 @@ public class Main {
 
     }//end main
 
-
     /*
         method name: displayCollection
         iterates through the collection ArrayList and displays each entry
@@ -99,7 +98,7 @@ public class Main {
         //ensures the user enters a valid ID that is not already in the collection by calling the doesIdExist method
         do {
             System.out.println("Please enter an ID number");
-            id = Integer.valueOf(input.nextLine());
+            id = 6;
             validId = !doesIdExist(collection, id);
             if (!validId) {
                 System.out.println("Cannot use an ID number that already exists");
@@ -107,9 +106,9 @@ public class Main {
         } while (!validId); //end do while
         // title and author are set
         System.out.println("Please enter the title of the book");
-        title = input.nextLine();
+        title = "test1";
         System.out.println("Please enter the author of the book");
-        author = input.nextLine();
+        author = "john1";
         //creates new book entry as a String with the previously entered variables
         String book = id + "," + title + "," + author;
         //adds new book to the collection
