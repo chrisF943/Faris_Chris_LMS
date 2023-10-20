@@ -25,7 +25,7 @@ public class DeleteBook {
         //checks if user input is a integer and calls the deleteById method, if not calls the deleteByTitle method
         do {
             System.out.println("Please enter the ID number or title of the book you want to delete: ");
-            userInput = "test2";
+            userInput = input.nextLine().trim();
 
             if (userInput.matches("\\d+")) {
                 int idToDelete = Integer.parseInt(userInput);

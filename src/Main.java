@@ -98,7 +98,7 @@ public class Main {
         //ensures the user enters a valid ID that is not already in the collection by calling the doesIdExist method
         do {
             System.out.println("Please enter an ID number");
-            id = 6;
+            id = Integer.valueOf(input.nextLine());
             validId = !doesIdExist(collection, id);
             if (!validId) {
                 System.out.println("Cannot use an ID number that already exists");
@@ -106,9 +106,9 @@ public class Main {
         } while (!validId); //end do while
         // title and author are set
         System.out.println("Please enter the title of the book");
-        title = "test1";
+        title = input.nextLine();
         System.out.println("Please enter the author of the book");
-        author = "john1";
+        author = input.nextLine();
         //creates new book entry as a String with the previously entered variables
         String book = id + "," + title + "," + author;
         //adds new book to the collection
