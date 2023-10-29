@@ -1,130 +1,170 @@
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import java.util.Scanner;
+
 /*
 Chris Faris
 Software Development 1
-9/25/2023
+10/20/2023
 class name: Main
-This class contains the Main method which executes the menu switch system and calls methods from this class
-and the 2 other classes, the overall objective of this program is to read from a text file and create
-an ArrayList, allow the user to add, view or delete from said list and ensure all changes are written to the text file.
+this class contains the main method that runs the LMS GUI, the program loads data from a text file
+into an ArrayList, and users can add, delete, checkout, and checkin books and view the collection
+all changes are written to the text file
 */
 
 public class Main {
-    static Scanner input = new Scanner(System.in);
+    private JFrame frame;
+    private JTextArea outputTextArea;
+    private ArrayList<String> collection;
+    private JPanel mainPanel;
 
-    /*
-     main method that reads from the given text file and creates an ArrayList, executes switch menu which
-     allows the user to choose an action to perform with the newly created ArrayList
-     no parameters and no return
-     */
+    public Main() {
+        collection = ReadFile.getBooks("BookCollection.txt");
 
-    public static void main(String[] args) {
-        char choice;
-        //reads text file and creates ArrayList using it, executes switch menu
-        ArrayList<String> collection = ReadFile.getBooks("BookCollection.txt");
-        System.out.println("Successfully added to collection from text file, please select an option: ");
-        System.out.println("-----------------------------------------------");
-        do {
-            //sets choice to get whatever letter is entered by user and performs corresponding action
-            choice = getChoice();
-            //menu system with 4 options, will also detect invalid choice input
-            switch (choice) {
-            //asks user for book details and creates new book entry in the collection, writes to text file
-                case 'A':
-                    addBook(collection);
-                    ReadFile.writeFile(collection,"BookCollection.txt");
-                    break;
-            //asks user for book ID and deletes book from the collection, writes to text file
-                case 'D':
-                    collection = DeleteBook.selectBook(collection);
-                    ReadFile.writeFile(collection,"BookCollection.txt");
-                    break;
-            //asks user for title of book and checks it in to the collection (once database is implemented)
-                case 'I':
-                    addBook(collection);
-                    ReadFile.writeFile(collection,"BookCollection.txt");
-                    break;
-            //asks user for title of book and checks it out from the collection (once database is implemented)
-                case 'O':
-                    collection = DeleteBook.selectBook(collection);
-                    ReadFile.writeFile(collection,"BookCollection.txt");
-                    break;
-                //shows current collection
-                case 'V':
-                    System.out.println("Here is the current book collection: \n");
-                    displayCollection(collection);
-                    System.out.println("\n");
-                    break;
-            //quits
-                case 'Q':
-                    System.out.println("Thank you.");
-                    break;
-            //displays when invalid selection is entered
-                default:
-                    System.out.println("Invalid selection.");
-                    break;
-            } // end switch
-        } while (choice != 'Q'); // end do while
+       /* try{
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        }catch(Exception e){
+            e.printStackTrace();
+        } */
+
+        //sets up the frame and panel properties, adds a header message and a message prompt to select an option
+
+        frame = new JFrame("Welcome to the LMS!");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(700, 400);
+        frame.setLayout(new BorderLayout());
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        outputTextArea = new JTextArea(10, 40);
+        outputTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(outputTextArea);
+
+        JPanel buttonPanel = new JPanel();
+
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        JLabel welcomeLabel = new JLabel("Please select an option below.");
+        welcomeLabel.setHorizontalAlignment(JLabel.CENTER);
+        frame.add(welcomeLabel, BorderLayout.NORTH);
+
+        Font welcomeFont = new Font("font", Font.BOLD, 15);
+        Font buttonFont = new Font("font", Font.BOLD, 13);
+        Font textFont = new Font("font", Font.ITALIC, 14);
+        welcomeLabel.setFont(welcomeFont);
+        outputTextArea.setFont(textFont);
+        frame.setBackground(Color.BLUE);
+        buttonPanel.setBackground(Color.BLACK);
+        outputTextArea.setBackground(Color.LIGHT_GRAY);
+        Border blueline = BorderFactory.createLineBorder(Color.BLUE);
+        Border blueline2 = BorderFactory.createLineBorder(Color.BLUE);
+        Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+        Border compound = BorderFactory.createCompoundBorder(raisedbevel, blueline);
+        outputTextArea.setBorder(compound);
+        buttonPanel.setBorder(blueline2);
+
+        //buttons and listeners are created for all 5 options, appropriate methods are called for each
+
+        JButton viewButton = new JButton("View Collection");
+        viewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                displayCollection(collection);
+            }//end actionPerformed
+        });
+        viewButton.setFont(buttonFont);
+
+        JButton addButton = new JButton("Add Book");
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addBook(collection);
+                ReadFile.writeFile(collection, "BookCollection.txt");
+            }//end actionPerformed
+        });
+        addButton.setFont(buttonFont);
+
+        JButton deleteButton = new JButton("Delete Book");
+        deleteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                collection = DeleteBook.selectBook(collection);
+                ReadFile.writeFile(collection, "BookCollection.txt");
+            }//end actionPerformed
+        });
+        deleteButton.setFont(buttonFont);
+
+        JButton checkoutButton = new JButton("Checkout Book");
+        checkoutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                collection = DeleteBook.selectBook(collection);
+                ReadFile.writeFile(collection, "BookCollection.txt");
+            }//end actionPerformed
+        });
+        checkoutButton.setFont(buttonFont);
+
+        JButton checkinButton = new JButton("Checkin Book");
+        checkinButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addBook(collection);
+                ReadFile.writeFile(collection, "BookCollection.txt");
+            }//end actionPerformed
+        });
+        checkinButton.setFont(buttonFont);
+
+        buttonPanel.add(viewButton);
+        buttonPanel.add(addButton);
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(checkoutButton);
+        buttonPanel.add(checkinButton);
+
+        frame.setVisible(true);
+    }//end Main
 
 
-    }//end main
-
-    /*
-        method name: displayCollection
-        iterates through the collection ArrayList and displays each entry
-        passed in the created ArrayList as a String parameter, no return
-     */
-    public static void displayCollection(ArrayList<String> collection) {
-        System.out.println("Formatted as: (ID number, Title, Author)\n");
-        for (int i = 0; i < collection.size(); i++) {
-            System.out.println(collection.get(i));
-            System.out.println("----------------------------------------------");
+    /*altered for use with GUI, prints out current contents of the collection
+    ArrayList type String collection is parameter with no return
+    */
+    public void displayCollection(ArrayList<String> collection) {
+        outputTextArea.setText("Here is the current book collection:\n");
+        outputTextArea.append("----------------------------------------------\n");
+        for (String book : collection) {
+            outputTextArea.append(book + "\n");
+            outputTextArea.append("----------------------------------------------\n");
         }//end for
     }//end displayCollection
 
-    /*
-     method name: addBook
-     initializes what makes up a book as separate variables, asks the user for the details of each variable
-     and creates a new book entry in the collection
-     passed in the created ArrayList as a String parameter, no return
-     */
-    public static void addBook(ArrayList<String> collection) {
-        int id ;
-        String author;
+    /*also altered for use with GUI, asks user for book details, creates it and adds it to the collection
+    if details are valid, also has ArrayList type String collection as a parameter with no return
+    */
+    public void addBook(ArrayList<String> collection) {
+        int id;
         String title;
-        boolean validId;
-        //ensures the user enters a valid ID that is not already in the collection by calling the doesIdExist method
-        do {
-            System.out.println("Please enter an ID number");
-            id = Integer.valueOf(input.nextLine());
-            validId = !doesIdExist(collection, id);
-            if (!validId) {
-                System.out.println("Cannot use an ID number that already exists");
-            }
-        } while (!validId); //end do while
-        // title and author are set
-        System.out.println("Please enter the title of the book");
-        title = input.nextLine();
-        System.out.println("Please enter the author of the book");
-        author = input.nextLine();
-        //creates new book entry as a String with the previously entered variables
+        String author;
+        id = Integer.valueOf(JOptionPane.showInputDialog("Please enter an ID number:"));
+        if (doesIdExist(collection, id)) {
+            JOptionPane.showMessageDialog(null, "Cannot use an ID number that already exists.");
+            id = Integer.valueOf(JOptionPane.showInputDialog("Please enter an ID number:"));
+        }//end if
+        title = JOptionPane.showInputDialog("Please enter the title of the book:");
+        author = JOptionPane.showInputDialog("Please enter the author of the book:");
         String book = id + "," + title + "," + author;
-        //adds new book to the collection
         collection.add(book);
-        System.out.println("Book has successfully been checked in to the collection. \n");
+        ReadFile.writeFile(collection, "BookCollection.txt");
+        JOptionPane.showMessageDialog(null, "Book has successfully been checked in to the collection.");
     }//end addBook
 
-    /*
-     method name: doesIdExist
-     checks if the ID entered already exists in the collection by parsing and looking at the
-     number before the first comma which represents the ID of each book
-     passed in the created ArrayList as a String parameter and the id variable created in addBook
-     returns true if the ID exists and false if it does not
-     */
-    private static boolean doesIdExist(ArrayList<String> collection, int id) {
-        //iterates through collection and checks each id by parsing
+
+    /*iterates through the collection to see if the id entered by user already exists, returns true if it does
+    else returns false, also has ArrayList type String collection as a parameter and the id as an int
+    */
+    public boolean doesIdExist(ArrayList<String> collection, int id) {
         for (String book : collection) {
             String[] bookDetails = book.split(",");
             int existingId = Integer.parseInt(bookDetails[0]);
@@ -135,30 +175,12 @@ public class Main {
         return false;
     }//end doesIdExist
 
-    /*
-    method name: getChoice
-    creates result variable which collects user input and returns it as a char result
-    prints out prompts for each menu choice
-    no parameters and returns a char result
-     */
-    public static char getChoice() {
-        char result = ' ';
-        //creates prompts which are collected into a single String
-        String menu = "Press 'D' to Delete a book from the collection. \n";
-        menu += "----------------------------------------------\n";
-        menu += "Press 'A' to Add additional book(s) to the collection.\n";
-        menu += "----------------------------------------------\n";
-        menu += "Press 'I' to check a book in to the collection.\n";
-        menu += "----------------------------------------------\n";
-        menu += "Press 'O' to check a book out from the collection.\n";
-        menu += "----------------------------------------------\n";
-        menu += "Press 'V' to View the collection.\n";
-        menu += "----------------------------------------------\n";
-        menu += "Press 'Q' to quit\n";
-        menu += "----------------------------------------------\n";
-        //prints menu and collects user input
-        System.out.println(menu);
-        result = input.nextLine().toUpperCase().charAt(0);
-        return result;
-    } // end getChoice
+    //creates a new instance of the Main class using SwingUtilities to ensure the GUI functions properly
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Main();
+            }
+        });
+    }//end main
 }//end class

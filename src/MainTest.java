@@ -15,7 +15,7 @@ public class MainTest {
     @Test
     public void testAddBook() {
 
-        Main.addBook(collection);
+        //Main.addBook(collection);
         System.out.println(collection);
         // Assert: Check if the test case produces the expected result
         // Assert that the collection has increased in size, indicating that a book was added

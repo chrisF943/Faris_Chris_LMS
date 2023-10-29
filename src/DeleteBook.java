@@ -1,10 +1,11 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
 Chris Faris
 Software Development 1
-9/25/2023
+10/20/2023
 class name: DeleteBook
 contains the methods to delete a book from the collection, called in the Main class when
 the user wants to delete a book
@@ -24,8 +25,7 @@ public class DeleteBook {
         ArrayList<String> updatedCollection = new ArrayList<>();
         //checks if user input is a integer and calls the deleteById method, if not calls the deleteByTitle method
         do {
-            System.out.println("Please enter the ID number or title of the book you want to delete: ");
-            userInput = input.nextLine().trim();
+            userInput = JOptionPane.showInputDialog("Please enter the ID number or title of the book you want to delete: ");
 
             if (userInput.matches("\\d+")) {
                 int idToDelete = Integer.parseInt(userInput);
@@ -34,10 +34,10 @@ public class DeleteBook {
                 deleted = deleteByTitle(collection, updatedCollection, userInput);
             }
             if (!deleted) {
-                System.out.println("That book does not exist in the collection, please try again");
+                JOptionPane.showMessageDialog(null, "That book does not exist in the collection, please try again");
             }
         }while (!deleted);
-        System.out.println("Book has successfully been checked out from the collection. \n");
+        JOptionPane.showMessageDialog(null, "Book has successfully been checked out from the collection. \n");
         return updatedCollection;
     }//end selectBook
 
