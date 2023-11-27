@@ -19,6 +19,10 @@ public class DeleteBook {
      if it is found the appropriate method is called and SQL statement is executed
      has no parameters and no return
      */
+
+    /**
+     *
+     */
     public static void selectBook() {
         String userInput;
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";
@@ -44,6 +48,13 @@ public class DeleteBook {
     the barcode of the book is passed in as well as the url of the database, returns the executeDeleteSQL method
     with the parameters of the barcode and the SQL statement
      */
+
+    /**
+     *
+     * @param barcode
+     * @param url
+     * @return
+     */
     public static boolean deleteByBarcode(int barcode, String url) {
         String sql = "DELETE FROM books WHERE barcode = ?";
         return executeDeleteSQL(barcode, sql);
@@ -53,6 +64,13 @@ public class DeleteBook {
     the title of the book is passed in as well as the url of the database, returns the executeDeleteSQL method
     with the parameters of the title and the SQL statement
     */
+
+    /**
+     *
+     * @param title
+     * @param url
+     * @return
+     */
     public static boolean deleteByTitle(String title, String url) {
         String sql = "DELETE FROM books WHERE title = ?";
         return executeDeleteSQL(title, sql);
@@ -61,6 +79,13 @@ public class DeleteBook {
 
     /*connects to the database and executes the appropriate SQL statement for deleting a book, based off
     the value parameter passed in which will either be a barcode or title
+     */
+
+    /**
+     *
+     * @param value
+     * @param sql
+     * @return
      */
     public static boolean executeDeleteSQL(Object value, String sql) {
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";

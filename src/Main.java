@@ -19,6 +19,9 @@ public class Main {
     private JTextArea outputTextArea;
     private JPanel mainPanel;
 
+    /**
+     *
+     */
     public Main() {
 
         //sets up the frame and panel properties, adds a header message and a message prompt to select an option
@@ -116,6 +119,10 @@ public class Main {
     /*altered for use with GUI and database, connects to the database and prints all contents via a
     SELECT statement with no parameters and returns no return
     */
+
+    /**
+     *
+     */
     public void displayCollection() {
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";
 
@@ -160,6 +167,10 @@ public class Main {
     /*also altered for use with GUI and database, connects to the database and adds a book to it
     with details provided by the user
     */
+
+    /**
+     *
+     */
     public void addBook() {
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";
 
@@ -207,7 +218,14 @@ public class Main {
     /*iterates through the database to see if the id entered by user already exists, returns true if it does
     else returns false, also has the barcode passed in as a parameter and the url of the database
     */
-      public boolean doesBarcodeExist(int barcode, String url) {
+
+    /**
+     *
+     * @param barcode
+     * @param url
+     * @return
+     */
+    public boolean doesBarcodeExist(int barcode, String url) {
           Connection connection = null;
           PreparedStatement preparedStatement = null;
           ResultSet resultSet = null;
@@ -253,6 +271,12 @@ public class Main {
     /*is called in the addBook method to add the newly created book to the database
     the new book is passed in as a parameter returns false if the book cannot be added
     */
+
+    /**
+     *
+     * @param book
+     * @return
+     */
     private boolean insertBookToDatabase(String book) {
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";
 
@@ -292,6 +316,10 @@ public class Main {
     where the due date is then updated to null and the status is updated to checked in
     has no parameters and no return
     */
+
+    /**
+     *
+     */
     public void checkInBook() {
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";
         int barcode = 0;
@@ -336,6 +364,10 @@ public class Main {
     where the due date is then updated to 4 weeks from the current date and the status is updated to checked out
     has no parameters and no return
      */
+
+    /**
+     *
+     */
     public void checkOutBook() {
         String url = "jdbc:sqlite:/Users/chrisfaris/collection.db";
         int barcode = 0;
@@ -376,6 +408,11 @@ public class Main {
     }//end checkOutBook
 
     //creates a new instance of the Main class using SwingUtilities to ensure the GUI functions properly
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
