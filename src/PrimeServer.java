@@ -8,7 +8,8 @@ public class PrimeServer {
 
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(11111);
+            ServerSocket serverSocket = new ServerSocket(11111);//you may change this to whatever you like
+            //if you get an error saying address already in use
             System.out.println("Server listening...");
 
             while (true) {
