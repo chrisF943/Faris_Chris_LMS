@@ -1,1 +1,1 @@
-my submission for the SDLC assignment part 2
+A library management system coupled with a SQLite database and a full GUI.
